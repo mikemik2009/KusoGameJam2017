@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KusoGameJam2017.CSharp", "KusoGameJam2017.CSharp.csproj", "{70D9CD1E-BB08-38BD-662A-12F407991C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KusoGameJam2017.CSharp.Editor", "KusoGameJam2017.CSharp.Editor.csproj", "{DAAC8671-8AE0-2173-112A-03D2C77E576D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70D9CD1E-BB08-38BD-662A-12F407991C6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D9CD1E-BB08-38BD-662A-12F407991C6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D9CD1E-BB08-38BD-662A-12F407991C6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D9CD1E-BB08-38BD-662A-12F407991C6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAAC8671-8AE0-2173-112A-03D2C77E576D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAAC8671-8AE0-2173-112A-03D2C77E576D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAAC8671-8AE0-2173-112A-03D2C77E576D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAAC8671-8AE0-2173-112A-03D2C77E576D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
