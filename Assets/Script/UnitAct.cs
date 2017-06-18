@@ -82,6 +82,8 @@ public class UnitAct : MonoBehaviour {
     {
         if (IsActable())
         {
+            this.GetComponent<BoxCollider2D>().enabled = true;
+
             if (IsEnemyBeside())
                 this._curState = State.Attack;
             else if (IsMoveable())
@@ -120,7 +122,10 @@ public class UnitAct : MonoBehaviour {
             this._curState = State.Dead;
         }
         else
+        {
             target.SendMessage("OnDamage", GetAttackPower(), SendMessageOptions.DontRequireReceiver);
+            this.GetComponent<BoxCollider2D>().enabled = false;
+        }
         
         _colddownTime = CDTime;
     }
