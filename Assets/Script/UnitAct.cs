@@ -114,7 +114,13 @@ public class UnitAct : MonoBehaviour {
             return;
         }
         
-        target.SendMessage("OnDamage", GetAttackPower(), SendMessageOptions.DontRequireReceiver);
+        if(target == destination)
+        {
+            target.SendMessage("OnDamage", GetAttackPower() + this.HP, SendMessageOptions.DontRequireReceiver);
+            this._curState = State.Dead;
+        }
+        else
+            target.SendMessage("OnDamage", GetAttackPower(), SendMessageOptions.DontRequireReceiver);
         
         _colddownTime = CDTime;
     }
@@ -143,11 +149,15 @@ public class UnitAct : MonoBehaviour {
     IEnumerator Dead()
     {
         _anim.Play("Unit_N_Death");
-        var time = _anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-        
-        yield return new WaitForSeconds(time);
 
-        Destroy(this.gameObject);
+        if (_anim.GetCurrentAnimatorClipInfo(0).Length > 0)
+        {
+            var time = _anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+
+            yield return new WaitForSeconds(time);
+
+            Destroy(this.gameObject);
+        }
     }
 
     Vector3 SelectTarget()

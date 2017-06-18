@@ -16,15 +16,22 @@ public class GacheAct : MonoBehaviour {
 
     public GameObject enemy;
 
+    public float HP = 100;
+    private UnityEngine.UI.Button _button;
+
     // Use this for initialization
     void Start () {
-		
-	}
+
+        _button = this.GetComponent<UnityEngine.UI.Button>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        this.coin += Time.deltaTime;
+        if (this.HP <= 0)
+            return;
+
+        this.coin += Time.deltaTime * 10;
         
         RollAUnit();
 
@@ -33,6 +40,9 @@ public class GacheAct : MonoBehaviour {
 
     void RollAUnit()
     {
+        if (this.HP <= 0)
+            return;
+
         if (coin < a_unit_cost)
             return;
 
@@ -52,12 +62,16 @@ public class GacheAct : MonoBehaviour {
         unit.tag = this.gameObject.tag;
         unit.GetComponent<UnitAct>().destination = enemy;
 
+        _button.onClick.Invoke();
         coin -= a_unit_cost;
     }
 
 
     void RollTenUnit()
     {
+        if (this.HP <= 0)
+            return;
+
         if (coin < ten_unit_cost)
             return;
 
@@ -83,6 +97,13 @@ public class GacheAct : MonoBehaviour {
             unit.GetComponent<UnitAct>().destination = enemy;
         }
 
+        _button.onClick.Invoke();
         coin -= ten_unit_cost;
+    }
+
+
+    void OnDamage(float damage)
+    {
+        this.HP -= damage;
     }
 }
