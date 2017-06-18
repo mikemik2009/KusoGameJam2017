@@ -8,9 +8,11 @@ public class GacheAct : MonoBehaviour {
     public static int a_unit_cost = 10;
     public static int ten_unit_cost = 100;
 
-    public static float[] prob = new float[] { 63f, 25f, 10f, 1.9f, 0.1f};
+    public static float[] prob = new float[] {63f, 25f, 10f, 1.9f, 0.9999f, 0.0001f};
 
-    public GameObject[] units = new GameObject[5];
+    public float accProb = 0f;
+
+    public GameObject[] units = new GameObject[6];
 
     public GameObject enemy;
 
@@ -24,8 +26,9 @@ public class GacheAct : MonoBehaviour {
     {
         this.coin += Time.deltaTime;
         
-        prob[1] = 0;
         RollAUnit();
+
+        accProb += Time.deltaTime;
     }
 
     void RollAUnit()
@@ -35,11 +38,11 @@ public class GacheAct : MonoBehaviour {
 
         int idx = 0;
         float p = Random.Range(0f, 100f);
-        for(int i =0; i < prob.Length; i++)
+        for(int i = prob.Length-1; i >=0; i--)
         {
             idx = i;
 
-            if ((p -= prob[i]) <= 0f)
+            if ((p -= (prob[i]* accProb/10)) <= 0f)
             {
                 break;
             }
@@ -62,11 +65,11 @@ public class GacheAct : MonoBehaviour {
         {
             int idx = 0;
             float p = Random.Range(0f, 100f);
-            for (int i = 0; i < prob.Length; i++)
+            for (int i = prob.Length - 1; i >= 0; i--)
             {
                 idx = i;
 
-                if ((p -= prob[i]) <= 0f)
+                if ((p -= (prob[i] * accProb / 10)) <= 0f)
                 {
                     break;
                 }

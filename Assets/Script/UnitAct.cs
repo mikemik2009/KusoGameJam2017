@@ -15,22 +15,30 @@ public class UnitAct : MonoBehaviour {
     public float speed = 0f;
     public float detectRadius = 10f;
     public float CDTime = 0f;
-    public int atk = 1;
-    public int HP = 10;
-    public float attack_range = 0f;
+    public float atk = 1;
+    public float HP = 10;
+    public float attack_range = 1f;
 
     public State _curState;
     private float _colddownTime;
     private float _searchEnemyRange;
+    private Animator _anim;
 
     public GameObject destination;
     public GameObject target;
-    
+
+
+
     // Use this for initialization
     void Start ()
     {
-        _searchEnemyRange = this.GetComponent<BoxCollider2D>().size.x;
+        attack_range += this.GetComponent<BoxCollider2D>().bounds.size.x;   
+        _searchEnemyRange = this.GetComponent<BoxCollider2D>().bounds.size.x;
+        _anim = this.GetComponent<Animator>();
         this._curState = State.Born;
+
+        if (this.tag == "enemy")
+            this.transform.localScale = new Vector3(this.transform.localScale.x * - 1, this.transform.localScale.y, this.transform.localScale.z);
     }
 
     // Update is called once per frame
@@ -54,7 +62,7 @@ public class UnitAct : MonoBehaviour {
                 break;
                 
             case State.Dead:
-                Dead();
+                StartCoroutine(Dead());
                 break;
         }
 
@@ -101,6 +109,7 @@ public class UnitAct : MonoBehaviour {
     {
         if (!IsEnemyBeside() || !IsActable() || IsColdDown())
         {
+            print(this.tag + !IsEnemyBeside() + IsColdDown());
             this._curState = State.Idle;
             return;
         }
@@ -109,29 +118,35 @@ public class UnitAct : MonoBehaviour {
         
         _colddownTime = CDTime;
     }
-    
-    int GetActualDamage(int ap)
+
+    float GetActualDamage(float ap)
     {
         return ap;
     }
 
-    void OnDamage(int ap)
+    void OnDamage(float ap)
     {
-        int damage = GetActualDamage(ap);
+        float damage = GetActualDamage(ap);
         
         this.HP -= damage;
 
+        _anim.Play("Unit_N_Hurt");
         //if (HP <= 0)
         //    this._curState = State.Dead;
     }
 
-    int GetAttackPower()
+    float GetAttackPower()
     {
         return this.atk;
     }
 
-    void Dead()
+    IEnumerator Dead()
     {
+        _anim.Play("Unit_N_Death");
+        var time = _anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        
+        yield return new WaitForSeconds(time);
+
         Destroy(this.gameObject);
     }
 
@@ -179,5 +194,13 @@ public class UnitAct : MonoBehaviour {
     {
         if(collider.tag != this.tag)
             target = collider.gameObject;
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag != this.tag)
+        {
+            target = coll.gameObject;
+        }
     }
 }
