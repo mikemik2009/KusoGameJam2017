@@ -91,6 +91,7 @@ public class UnitAct : MonoBehaviour {
 
         Vector3 startPos = this.transform.position;
         Vector3 targetPos = SelectTarget();
+        targetPos.y = startPos.y;
         float journeyLength = Vector3.Distance(startPos, targetPos);
         float fracJourney = this.speed / journeyLength;
         this.transform.position = Vector3.Lerp(startPos, targetPos, fracJourney);
@@ -103,8 +104,7 @@ public class UnitAct : MonoBehaviour {
             this._curState = State.Idle;
             return;
         }
-
-        print(this);
+        
         target.SendMessage("OnDamage", GetAttackPower(), SendMessageOptions.DontRequireReceiver);
         
         _colddownTime = CDTime;
@@ -118,10 +118,10 @@ public class UnitAct : MonoBehaviour {
     void OnDamage(int ap)
     {
         int damage = GetActualDamage(ap);
-
+        
         this.HP -= damage;
 
-        //if(HP <= 0)
+        //if (HP <= 0)
         //    this._curState = State.Dead;
     }
 
@@ -177,6 +177,7 @@ public class UnitAct : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        target = collider.gameObject;
+        if(collider.tag != this.tag)
+            target = collider.gameObject;
     }
 }
