@@ -15,13 +15,18 @@ public class GacheAct : MonoBehaviour {
     public GameObject[] units = new GameObject[6];
 
     public GameObject enemy;
+    
+    public GameObject spawner;
+    //public GameObject gameover;
 
     public float HP = 100;
     private UnityEngine.UI.Button _button;
 
     // Use this for initialization
-    void Start () {
-
+    void Start ()
+    {
+        //gameover = GameObject.Find("GameOver");
+        //gameover.SetActive(false);
         _button = this.GetComponent<UnityEngine.UI.Button>();
     }
 	
@@ -29,7 +34,10 @@ public class GacheAct : MonoBehaviour {
 	void Update ()
     {
         if (this.HP <= 0)
+        {
+            //gameover.SetActive(true);
             return;
+        }
 
         this.coin += Time.deltaTime * 10;
         
@@ -61,6 +69,7 @@ public class GacheAct : MonoBehaviour {
         var unit = Instantiate(units[idx], this.transform);
         unit.tag = this.gameObject.tag;
         unit.GetComponent<UnitAct>().destination = enemy;
+        unit.transform.position = spawner.transform.position;
 
         _button.onClick.Invoke();
         coin -= a_unit_cost;
@@ -95,6 +104,7 @@ public class GacheAct : MonoBehaviour {
             var unit = Instantiate(units[idx], this.transform);
             unit.tag = this.gameObject.tag;
             unit.GetComponent<UnitAct>().destination = enemy;
+            unit.transform.position = spawner.transform.position;
         }
 
         _button.onClick.Invoke();
