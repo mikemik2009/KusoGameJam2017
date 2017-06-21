@@ -8,42 +8,49 @@ public class GacheAct : MonoBehaviour {
     public static int a_unit_cost = 10;
     public static int ten_unit_cost = 100;
 
-    public static float[] prob = new float[] {63f, 25f, 10f, 1.9f, 0.9999f, 0.0001f};
-
-    public float accProb = 0f;
-
     public GameObject[] units = new GameObject[6];
 
     public GameObject enemy;
     
     public GameObject spawner;
-    public GameObject gameover;
 
-    public float HP = 100;
+    public float HP = 100f;
     private UnityEngine.UI.Button _button;
+    private bool _gamestart = false;
 
     // Use this for initialization
     void Start ()
     {
-        //gameover = GameObject.Find("GameOver");
-        gameover.SetActive(false);
         _button = this.GetComponent<UnityEngine.UI.Button>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void StartGame()
     {
+        coin = 0f;
+        HP = 100f;
+        _gamestart = true;
+    }
+
+    void GameOver()
+    {
+        _gamestart = false;
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+        if (!_gamestart)
+            return;
+
         if (this.HP <= 0)
         {
-            gameover.SetActive(true);
+            Manager.Instance.GameOver(this.tag);
             return;
         }
 
         this.coin += Time.deltaTime * 10;
         
         RollAUnit();
-
-        accProb += Time.deltaTime;
     }
 
     void RollAUnit()
@@ -56,11 +63,11 @@ public class GacheAct : MonoBehaviour {
 
         int idx = 0;
         float p = Random.Range(0f, 100f);
-        for(int i = prob.Length-1; i >=0; i--)
+        for(int i = Manager.Instance.getProb().Length-1; i >=0; i--)
         {
             idx = i;
 
-            if ((p -= (prob[i]* accProb/10)) <= 0f)
+            if ((p -= Manager.Instance.getProb()[i]) <= 0f)
             {
                 break;
             }
@@ -88,11 +95,11 @@ public class GacheAct : MonoBehaviour {
         {
             int idx = 0;
             float p = Random.Range(0f, 100f);
-            for (int i = prob.Length - 1; i >= 0; i--)
+            for (int i = Manager.Instance.getProb().Length - 1; i >= 0; i--)
             {
                 idx = i;
 
-                if ((p -= (prob[i] * accProb / 10)) <= 0f)
+                if ((p -= Manager.Instance.getProb()[i]) <= 0f)
                 {
                     break;
                 }
@@ -115,5 +122,10 @@ public class GacheAct : MonoBehaviour {
     void OnDamage(float damage)
     {
         this.HP -= damage;
+    }
+
+    void addMoney(float money)
+    {
+        coin += money;
     }
 }

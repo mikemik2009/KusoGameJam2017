@@ -9,7 +9,8 @@ public class UnitAct : MonoBehaviour {
         Attack,
         Idle,
         HardContorl,
-        Dead
+        Dead,
+        Win
     };
 
     public float speed = 0f;
@@ -26,8 +27,7 @@ public class UnitAct : MonoBehaviour {
 
     public GameObject destination;
     public GameObject target;
-
-
+    
 
     // Use this for initialization
     void Start ()
@@ -39,6 +39,16 @@ public class UnitAct : MonoBehaviour {
 
         if (this.tag == "enemy")
             this.transform.localScale = new Vector3(this.transform.localScale.x * - 1, this.transform.localScale.y, this.transform.localScale.z);
+    }
+
+    void StartGame()
+    {
+        Destroy(this.gameObject);
+    }
+
+    void GameOver()
+    {
+        this._curState = State.Win;
     }
 
     // Update is called once per frame
@@ -64,13 +74,21 @@ public class UnitAct : MonoBehaviour {
             case State.Dead:
                 StartCoroutine(Dead());
                 break;
+
+            case State.Win:
+                Win();
+                break;
         }
 
         _colddownTime -= Time.deltaTime;
 
         if (HP <= 0)
             this._curState = State.Dead;
-    }    
+    }
+
+    void Win()
+    {
+    }
 
     void Born()
     {
@@ -200,9 +218,7 @@ public class UnitAct : MonoBehaviour {
     
     bool IsActable()
     {
-        bool ret = true;
-
-        return ret;
+        return true;
     }    
 
     void OnTriggerEnter2D(Collider2D collider)
