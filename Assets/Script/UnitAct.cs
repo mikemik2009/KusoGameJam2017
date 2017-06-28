@@ -22,7 +22,7 @@ public class UnitAct : MonoBehaviour {
 
     public State _curState;
     private float _colddownTime;
-    private float _searchEnemyRange;
+    //private float _searchEnemyRange;
     private Animator _anim;
 
     public GameObject destination;
@@ -33,7 +33,7 @@ public class UnitAct : MonoBehaviour {
     void Start ()
     {
         attack_range += this.GetComponent<BoxCollider2D>().bounds.size.x;   
-        _searchEnemyRange = this.GetComponent<BoxCollider2D>().bounds.size.x;
+        //_searchEnemyRange = this.GetComponent<BoxCollider2D>().bounds.size.x;
         _anim = this.GetComponent<Animator>();
         this._curState = State.Born;
 
@@ -53,6 +53,9 @@ public class UnitAct : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (this._curState == State.Dead)
+            return;
+
         switch (this._curState)
         {
             case State.Born:
@@ -70,10 +73,11 @@ public class UnitAct : MonoBehaviour {
             case State.Attack:
                 Attack();
                 break;
-                
-            case State.Dead:
-                StartCoroutine(Dead());
-                break;
+
+            //case State.Dead:
+            //    //Dead();// StartCoroutine(Dead());
+            //    HP = 0.0f;
+            //    break;
 
             case State.Win:
                 Win();
@@ -83,7 +87,10 @@ public class UnitAct : MonoBehaviour {
         _colddownTime -= Time.deltaTime;
 
         if (HP <= 0)
+        {
             this._curState = State.Dead;
+            Dead();
+        }
     }
 
     void Win()
@@ -129,7 +136,6 @@ public class UnitAct : MonoBehaviour {
     {
         if (!IsEnemyBeside() || !IsActable() || IsColdDown())
         {
-            print(this.tag + !IsEnemyBeside() + IsColdDown());
             this._curState = State.Idle;
             return;
         }
@@ -137,7 +143,7 @@ public class UnitAct : MonoBehaviour {
         if(target == destination)
         {
             target.SendMessage("OnDamage", GetAttackPower() + this.HP, SendMessageOptions.DontRequireReceiver);
-            this._curState = State.Dead;
+            this.HP = 0f;
         }
         else
         {
@@ -169,17 +175,18 @@ public class UnitAct : MonoBehaviour {
         return this.atk;
     }
 
-    IEnumerator Dead()
+    void Dead()//IEnumerator Dead()
     {
+        this.GetComponent<AudioSource>().Play();
         _anim.Play("Unit_N_Death");
-
+        
         if (_anim.GetCurrentAnimatorClipInfo(0).Length > 0)
         {
             var time = _anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            
+            //yield return new WaitForSeconds(time);
 
-            yield return new WaitForSeconds(time);
-
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, time);
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class Manager : MonoBehaviour{
 
     private static Manager s_Instance;
-    public float[] prob = new float[] { 63f, 25f, 10f, 1.9f, 0.9999f, 0.0001f };
+    public float[] prob = new float[] { 65f, 13f, 12f, 7f, 2.9f, 0.1f};
 
     public float accProb = 1.0f;
 
@@ -40,7 +40,7 @@ public class Manager : MonoBehaviour{
 	// Update is called once per frame
 	void Update ()
     {
-        accProb += Time.deltaTime;
+        accProb += Time.deltaTime/10;
     }
 
     public float[] getProb()
