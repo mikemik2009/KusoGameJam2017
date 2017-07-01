@@ -107,6 +107,7 @@
     <Compile Include="Assets\Script\Manager.cs" />
     <Compile Include="Assets\Script\UnitAct.cs" />
     <Compile Include="Assets\Script\button_event.cs" />
+    <Compile Include="Assets\Script\particleTest.cs" />
     <Compile Include="Assets\Script\probUI.cs" />
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EditorLabel.cs" />
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EnableCameraDepthInForward.cs" />
