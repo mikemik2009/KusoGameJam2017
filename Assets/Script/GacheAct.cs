@@ -11,6 +11,7 @@ public class GacheAct : MonoBehaviour {
     public GameObject[] units = new GameObject[6];
 
     public GameObject enemy;
+    public ParticleSystem sssrAppear;
     
     public GameObject spawner;
     public UI_ProgressBarC hp_bar;
@@ -61,17 +62,11 @@ public class GacheAct : MonoBehaviour {
             money_label.text = Mathf.FloorToInt(this.coin).ToString();
     }
 
-    public void RollAUnit()
+    void SpwanUnit(int lower)
     {
-        if (this.HP <= 0)
-            return;
-
-        if (coin < a_unit_cost)
-            return;
-
         int idx = 0;
         float p = Random.Range(0f, 100f);
-        for(int i = Manager.Instance.getProb().Length-1; i >=0; i--)
+        for (int i = Manager.Instance.getProb().Length - 1; i >= 0; i--)
         {
             idx = i;
 
@@ -81,10 +76,28 @@ public class GacheAct : MonoBehaviour {
             }
         }
 
+        idx = Mathf.Max(idx, lower);
+
         var unit = Instantiate(units[idx], this.transform);
         unit.tag = this.gameObject.tag;
         unit.GetComponent<UnitAct>().destination = enemy;
         unit.transform.position = spawner.transform.position;
+
+        if(idx == Manager.Instance.getProb().Length - 1)
+        {
+            sssrAppear.Play();
+        }
+    }
+
+    public void RollAUnit()
+    {
+        if (this.HP <= 0)
+            return;
+
+        if (coin < a_unit_cost)
+            return;
+
+        this.SpwanUnit(0);
 
         _button.onClick.Invoke();
         coin -= a_unit_cost;
@@ -101,25 +114,7 @@ public class GacheAct : MonoBehaviour {
 
         for (int cnt = 0; cnt < 11; cnt++)
         {
-            int idx = 0;
-            float p = Random.Range(0f, 100f);
-            for (int i = Manager.Instance.getProb().Length - 1; i >= 0; i--)
-            {
-                idx = i;
-
-                if ((p -= Manager.Instance.getProb()[i]) <= 0f)
-                {
-                    break;
-                }
-            }
-
-            if (cnt == 10)
-                idx = Mathf.Max(idx, 2);
-
-            var unit = Instantiate(units[idx], this.transform);
-            unit.tag = this.gameObject.tag;
-            unit.GetComponent<UnitAct>().destination = enemy;
-            unit.transform.position = spawner.transform.position;
+            this.SpwanUnit(0);
         }
 
         _button.onClick.Invoke();

@@ -272,6 +272,7 @@
     <Compile Include="Assets\UI\Editor\ZDGUIContextMenu.cs" />
     <Compile Include="Assets\UI\NOTFORBUILD\GlodenCardShader\Editor\GoldenMaterialEditor.cs" />
     <Compile Include="Assets\UI\NOTFORBUILD\GlodenCardShader\Editor\HelperExtensions.cs" />
+    <Compile Include="Assets\UnionAssetes\Particle\ParticleScaler\Editor\ParticleScaleEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Anima2D\Examples\Shaders\Unlit-Alpha-Cull-off.shader" />
