@@ -10,6 +10,7 @@ public class GacheAct : MonoBehaviour {
 
     public GameObject[] units = new GameObject[6];
 
+    public float make_money_rate = 10.0f;
     public GameObject enemy;
     public ParticleSystem sssrAppear;
     
@@ -57,7 +58,7 @@ public class GacheAct : MonoBehaviour {
             this.hp_bar.Value = (long)this.HP;
         }
         
-        this.coin += Time.deltaTime * 10;
+        this.coin += Time.deltaTime * this.make_money_rate;
         if(money_label)
             money_label.text = Mathf.FloorToInt(this.coin).ToString();
     }
