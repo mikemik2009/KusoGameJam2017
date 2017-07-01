@@ -48,12 +48,10 @@ public class GacheAct : MonoBehaviour {
             return;
         }
 
-        this.coin += Time.deltaTime * 10;
-        
-        RollAUnit();
+        this.coin += Time.deltaTime * 10;        
     }
 
-    void RollAUnit()
+    public void RollAUnit()
     {
         if (this.HP <= 0)
             return;
@@ -83,7 +81,7 @@ public class GacheAct : MonoBehaviour {
     }
 
 
-    void RollTenUnit()
+    public void RollTenUnit()
     {
         if (this.HP <= 0)
             return;

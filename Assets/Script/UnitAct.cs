@@ -19,6 +19,7 @@ public class UnitAct : MonoBehaviour {
     public float atk = 1;
     public float HP = 10;
     public float attack_range = 1f;
+    public float carry_coin = 0f;
 
     public State _curState;
     private float _colddownTime;
@@ -177,6 +178,8 @@ public class UnitAct : MonoBehaviour {
 
     void Dead()//IEnumerator Dead()
     {
+        destination.SendMessage("addMoney", carry_coin, SendMessageOptions.DontRequireReceiver);
+
         this.GetComponent<AudioSource>().Play();
         _anim.Play("Unit_N_Death");
         
