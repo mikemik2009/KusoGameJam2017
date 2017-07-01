@@ -13,6 +13,9 @@ public class GacheAct : MonoBehaviour {
     public GameObject enemy;
     
     public GameObject spawner;
+    public UI_ProgressBarC hp_bar;
+    public GameObject damage_label;
+    public UnityEngine.UI.Text money_label;
 
     public float HP = 100f;
     private UnityEngine.UI.Button _button;
@@ -48,7 +51,14 @@ public class GacheAct : MonoBehaviour {
             return;
         }
 
-        this.coin += Time.deltaTime * 10;        
+        if (this.hp_bar)
+        {
+            this.hp_bar.Value = (long)this.HP;
+        }
+        
+        this.coin += Time.deltaTime * 10;
+        if(money_label)
+            money_label.text = Mathf.FloorToInt(this.coin).ToString();
     }
 
     public void RollAUnit()
@@ -120,6 +130,18 @@ public class GacheAct : MonoBehaviour {
     void OnDamage(float damage)
     {
         this.HP -= damage;
+        if (damage_label)
+        {
+            damage_label.GetComponent<UnityEngine.UI.Text>().text = "-" + damage;
+
+            var label = Instantiate(damage_label, this.transform);
+
+            label.transform.position = transform.TransformPoint(new Vector3(144.5f, 67.5f, 0));
+
+            label.GetComponent<TypefaceAnimator>().onComplete.AddListener(() => {
+                Destroy(label);
+            });
+        }
     }
 
     void addMoney(float money)

@@ -101,6 +101,19 @@
     <Compile Include="Assets\Anima2D\Scripts\SpriteMesh.cs" />
     <Compile Include="Assets\Anima2D\Scripts\SpriteMeshAnimation.cs" />
     <Compile Include="Assets\Anima2D\Scripts\SpriteMeshInstance.cs" />
+    <Compile Include="Assets\External\TypefaceAnimator\Demo\Scripts\Demo1.cs" />
+    <Compile Include="Assets\External\TypefaceAnimator\Demo\Scripts\Demo2.cs" />
+    <Compile Include="Assets\External\TypefaceAnimator\Scripts\TypefaceAnimator.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Effects\CurvedText.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Effects\CylinderText.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Effects\Gradient2.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Effects\NicerOutline.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Effects\UIFlippable.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Layout\RadialLayout.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Primitives\UICircle.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Primitives\UIPrimitiveBase.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Utilities\SetPropertyUtility.cs" />
+    <Compile Include="Assets\External\unity-ui-extensions\Scripts\Utilities\UI_InfiniteScroll.cs" />
     <Compile Include="Assets\Script\GachaAI.cs" />
     <Compile Include="Assets\Script\GacheAct.cs" />
     <Compile Include="Assets\Script\GuiController.cs" />
@@ -113,7 +126,6 @@
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EnableCameraDepthInForward.cs" />
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\SoftNormalsToVertexColor.cs" />
     <Compile Include="Assets\UI\Scripts\CameraFacingBillboard.cs" />
-    <Compile Include="Assets\UI\Scripts\PlayClipAtPoint.cs" />
     <Compile Include="Assets\UI\Scripts\UIPolygon.cs" />
     <Compile Include="Assets\UI\Scripts\UI_ActivateInApp.cs" />
     <Compile Include="Assets\UI\Scripts\UI_DynamicGameObjects.cs" />

@@ -261,6 +261,10 @@
     <Compile Include="Assets\Anima2D\Scripts\Editor\VertexManipulator\VertexManipulator.cs" />
     <Compile Include="Assets\Anima2D\Scripts\Editor\WeightEditor.cs" />
     <Compile Include="Assets\Anima2D\Scripts\Editor\WindowEditorTool.cs" />
+    <Compile Include="Assets\External\BosoniqTools\OpenRecentScene\Editor\BosoniqToolsOpenRecentScene.cs" />
+    <Compile Include="Assets\External\BosoniqTools\OpenRecentScene\Editor\OpenRecentScene.cs" />
+    <Compile Include="Assets\External\TypefaceAnimator\Editor\TypefaceAnimatorEditor.cs" />
+    <Compile Include="Assets\External\TypefaceAnimator\Editor\TypefaceTools.cs" />
     <Compile Include="Assets\ShaderForge\Editor\InternalResources\Inspectors\ShaderForgeInspector.cs" />
     <Compile Include="Assets\ShaderForge\Editor\InternalResources\Inspectors\ShaderForgeMaterialInspector.cs" />
     <Compile Include="Assets\UI\Editor\PinUITopMenu.cs" />

@@ -168,7 +168,8 @@ public class TypefaceAnimator : BaseMeshEffect
 
 		m_isPlaying = false;
 		progress = 1.0f;
-		if(onComplete != null) onComplete.Invoke();
+		if(onComplete != null)
+            onComplete.Invoke();
 	}
 	
 	IEnumerator PlayLoopCoroutine ()
